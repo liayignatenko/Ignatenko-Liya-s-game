@@ -1,9 +1,29 @@
 
 class Block {
     constructor(x,y,type) {
+        let gridSize = fetch(url)
         this.x = x;
         this.y = y;
-        this.type = type;
+        this.types = {
+            'straight': {
+                symbol: ['|', '-'],
+                connections: [
+                    [true,false,true,false] //верх,право,низ,лево
+                    [false,true,false,true]
+                ]
+            },
+            'corner': {
+                symbol: ['┗', '┏', '┓', '┛'],
+                connections: [
+                    [true,true,false,false]
+                    [false,true,true,false]
+                    [false,false,true,true]
+                    [true,false,false,true]
+                ]
+            }
+        }
+
     }
 
 }
+
