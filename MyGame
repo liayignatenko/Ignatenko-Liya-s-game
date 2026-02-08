@@ -91,6 +91,7 @@ class Block {
             }
         }
     }
+    
     createBlockElement(row, col, blockData) {
         const block = document.createElement('div');
         block.className = 'block';
