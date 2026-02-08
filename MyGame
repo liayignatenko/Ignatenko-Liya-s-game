@@ -1,6 +1,10 @@
 
 class Block {
-    constructor(x,y,type) {
+    constructor() {
+        this.gridSize = 5;
+        this.blocks = [];
+        this.moves = 0;
+        this.isGameWon = false;
         let gridSize = fetch(url)
         this.x = x;
         this.y = y;
@@ -21,8 +25,80 @@ class Block {
                     [true,false,false,true]
                 ]
             }
+        };
+        this.init();
+    }
+    init() {
+        this.cacheElements();
+        this.createGrid();
+        this.setupEventListeners();
+    }
+    cacheElements() {
+        this.gridElement = document.getElementById('grid');
+        this.movesElement = document.getElementById('moves');
+        this.messageElement = document.getElementById('message');
+        this.shuffleBtn = document.getElementById('shuffle-btn');
+        this.resetBtn = document.getElementById('reset-btn');
+        this.hintBtn = document.getElementById('hint-btn');
+    }
+    createGrid() {
+        this.gridElement.innerHTML = '';
+        this.blocks = [];
+        const solution = this.generateSolution(); // создание правильного решения
+        for (let row = 0; row < this.gridSize; row++) {
+            this.blocks[row] = [];
+            for (let col = 0; col < this.gridSize; col++) {
+                const blockData = solution[row][col];
+                const block = this.createTileElement(row, col, blockData);
+                this.gridElement.appendChild(tile);
+                this.blocks[row][col] = tileData;
+            }
+        }
+        this.shuffle();
+        this.updateGrid(); 
+    }
+    generateSolution() {
+        const solution = [];
+        const types = ['straight', 'corner'];
+        
+        for (let row = 0; row < this.gridSize; row++) {
+            solution[row] = [];
+            for (let col = 0; col < this.gridSize; col++) {
+                const type = types[Math.floor(Math.random() * types.length)];
+                const rotation = Math.floor(Math.random() * 4);
+                solution[row][col] = { type, rotation, originalRotation: rotation };
+            }
+        }
+        
+        // Убедимся, что есть путь
+        this.ensurePath(solution);
+        return solution;
+    }
+    ensurePath(solution) {
+        // Простой алгоритм создания пути
+        for (let row = 0; row < this.gridSize; row++) {
+            for (let col = 0; col < this.gridSize; col++) {
+                if (row === 0 && col === 0) {
+                    solution[row][col] = { type: 'corner', rotation: 1, originalRotation: 1 };
+                } else if (row === this.gridSize - 1 && col === this.gridSize - 1) {
+                    solution[row][col] = { type: 'corner', rotation: 3, originalRotation: 3 };
+                } else {
+                    // Создаем случайные соединения
+                    const rand = Math.random();
+                    if (rand < 0.5) solution[row][col].type = 'straight';
+                    else solution[row][col].type = 'corner';
+                }
+            }
         }
     }
-
+    createBlockElement(row, col, blockData) {
+        const block = document.createElement('div');
+        block.className = 'block';
+        block.dataset.row = row;
+        block.dataset.col = col;
+        block.dataset.type = blockData.type;
+        block.dataset.rotation = blockData.rotation;
+        return block;
+    }
 }
 
