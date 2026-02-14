@@ -140,10 +140,3 @@ class Block {
     }
 }
 
-// if (solution[row][col]=='straight' && rand < 0.5 ) solution[row][col].type.connection = {type, rotation: 1};
-                //if (solution[row][col]=='straight' && rand > 0.5 ) solution[row][col].type.connection = [false,true,false,true];
-                //if (solution[row][col]=='corner' && rand < 0.25 ) solution[row][col].type.connection = [true,true,false,false];
-                //if (solution[row][col]=='corner' && (rand < 0.5 && rand > 0.25) ) solution[row][col].type.connection = [false,true,true,false];
-                //if (solution[row][col]=='corner' && (rand > 0.5 && rand < 0.75) ) solution[row][col].type.connection = [false,false,true,true];
-                //if (solution[row][col]=='corner' && rand > 0.75 ) solution[row][col].type.connection = [true,false,false,true];
-
