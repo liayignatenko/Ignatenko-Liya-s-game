@@ -92,19 +92,33 @@ class Block {
         block.dataset.rotation = blockData.rotation;
         return block;
     }
-    shuffle(solution) {
+    shuffle() {
         this.isGameWon = false;
-        this.messageElement = "message";
+        this.messageElement.className = 'message';
         for (let row = 0; row < this.gridSize; row++) {
-            for (let col = 0; col < this.gridSize; row++) {
-                let rand = Math.random();
-                if (solution[row][col].type == 'corner') solution[row][col] = {type, rotation: rand*4, originalRotation}
-                if (solution[row][col].type == 'straight') solution[row][col] = {type, rotation: rand*2, originalRotation}
+            for (let col = 0; col < this.gridSize; col++) {
+                const type = this.tiles[row][col].type;
+                const rotation = Math.floor(Math.random() * 4);
+                this.blocks[row][col].rotation = rotation;
             }
         }
         this.moves = 0;
         this.updateMoves();
         this.updateGrid();
+    }
+    rotateBlock(row, col) {
+        if (this.isGameWon) return;
+        const block = this.blocks[row][col];
+        block.rotation = (block.rotation+1) % 4;
+        this.moves++;
+        this.updateMoves();
+        this.updateGrid();
+        this.checkWinCondition();
+    }
+    updateGrid() {
+        for (let row = 0; row < this.gridSize; row++) {
+            for (let col = 0; col < this.gridSize; col++)
+        }
     }
 
     isGameWon(solution) { 
@@ -120,9 +134,7 @@ class Block {
     updateMoves() {
         document.movesElement = this.moves;
     }
-    updateGrid() {
-        document.gridElement = this.solution;
-    }
+    
     addEventListener() {
         block = document.getBlockElement('');
         if (block.type = 'straight') if (block.type.connection!= 2)  block.connection = 2;
