@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Головоломка на создание пути</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1> Игра "Блоки" </h1>
+            <p class="subtitle">Соедините блоки так, чтобы они были связаны с истоком - блоком в левом верхнем углу</p>
+        </header>
+
+        <div class="game-info">
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-label">Ходы:</span>
+                    <span id="moves">0</span>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button id="new-game-btn" class="btn">
+                     Новая игра
+                </button>
+                <button id="shuffle-btn" class="btn">
+                    Перемешать
+                </button>
+            </div>
+        </div>
+
+        <div class="game-area">
+            <div class="grid-container">
+                <div id="grid" class="grid"></div>
+            </div>
+        </div>
+
+        <div class="message" id="message"></div>
+    </div>
+
+	 
+	 <script src="BlockGame.js"></script>
+</body>
+</html>
